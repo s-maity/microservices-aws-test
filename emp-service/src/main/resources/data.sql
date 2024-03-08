@@ -1,0 +1,1 @@
+insert into "t_emp" values(1,'m','Sudipta Maity')
