@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://ziggy.db.elephantsql.com:5432/lqeautya
+    driverClassName: org.postgresql.Driver
+    username: lqeautya
+    password: QkR1DJo7S46SvFUI7TyxdLSOzLKLeFeA
+  jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
+  jpa:
+    defer-datasource-initialization: true
+    show_sql: true
+    hibernate:
+      ddl-auto: update
