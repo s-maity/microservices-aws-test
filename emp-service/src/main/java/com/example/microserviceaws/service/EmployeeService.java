@@ -1,21 +1,35 @@
 package com.example.microserviceaws.service;
 
+import com.example.microserviceaws.dto.Career;
 import com.example.microserviceaws.dto.CreateEmployeeRequest;
 import com.example.microserviceaws.dto.Employee;
 import com.example.microserviceaws.entity.EmployeeEntity;
 import com.example.microserviceaws.repository.EmpJPARepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class EmployeeService {
     private final EmpJPARepository empJPARepository;
 
+    @Value("${app.emp_career_service_url}")
+    private String empCareeerServiceURL;
+
     public List<Employee> getAllEmployee() {
-        return map(empJPARepository.findAll());
+        var employees = empJPARepository.findAll();
+        return employees.stream()
+                .map(emp -> build(emp, fethCareerDetails(emp.getId())))
+                .toList();
+    }
+
+    private Career fethCareerDetails(int empId) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(empCareeerServiceURL + "/" + empId, Career.class);
     }
 
     public int createEmployee(CreateEmployeeRequest request) {
@@ -27,17 +41,12 @@ public class EmployeeService {
                 .getId();
     }
 
-    private List<Employee> map(List<EmployeeEntity> entities) {
-        return entities.stream()
-                .map(this::buildEmployees)
-                .toList();
-    }
-
-    private Employee buildEmployees(EmployeeEntity e) {
+    private Employee build(EmployeeEntity e, Career career) {
         return Employee.builder()
                 .id(e.getId())
                 .name(e.getName())
                 .gender(e.getGender())
+                .skills(career.getSkills())
                 .build();
     }
 }

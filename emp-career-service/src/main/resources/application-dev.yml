@@ -10,6 +10,3 @@ spring:
     show_sql: true
     hibernate:
       ddl-auto: update
-
-app:
-  emp_career_service_url: http://careerservice:8051/api/career

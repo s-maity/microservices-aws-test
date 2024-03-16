@@ -5,16 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class Employee {
-
+public class Career implements Serializable {
     private int id;
-    private String name;
-    private String gender;
+    private int empId;
     private List<String> skills;
 }

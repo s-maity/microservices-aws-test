@@ -11,6 +11,4 @@ spring:
     properties.hibernate.globally_quoted_identifiers_skip_column_definitions: true
     show_sql: true
   h2.console.enabled: true
-
-app:
-  emp_career_service_url: http://localhost:8051/api/career
+# Access H2 console : http://localhost:8051/h2-console/

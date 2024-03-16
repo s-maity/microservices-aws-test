@@ -1,4 +1,4 @@
-package com.example.microserviceaws.dto;
+package com.example.empcareer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class Employee {
-
+public class Career {
     private int id;
-    private String name;
-    private String gender;
+    private int empId;
     private List<String> skills;
 }
